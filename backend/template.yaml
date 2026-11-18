@@ -1,0 +1,372 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  TripPlanner AI - backend serverless (canal 1): DynamoDB, Cognito, API Gateway HTTP, Lambdas
+  y hosting del frontend (S3 + CloudFront). Los agentes se despliegan aparte con el CLI de AgentCore.
+
+Parameters:
+  LocalOrigin:
+    Type: String
+    Default: http://localhost:5173
+    Description: Origen de desarrollo permitido por CORS (vacio no es valido; usa una URL).
+  CreateCloudFront:
+    Type: String
+    Default: "true"
+    AllowedValues: ["true", "false"]
+    Description: Crea S3 + CloudFront para publicar el frontend.
+  MemoryId:
+    Type: String
+    Default: tripplanner_TripPlannerMemory-ZQN59q9P6T
+    Description: Id de la memoria de AgentCore (donde el Orchestrator guarda las conversaciones).
+  AgentRuntimeHost:
+    Type: String
+    Default: https://bedrock-agentcore.us-east-2.amazonaws.com
+    Description: Host del endpoint de AgentCore (para la CSP del frontend).
+
+Conditions:
+  UseCloudFront: !Equals [!Ref CreateCloudFront, "true"]
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Architectures: [arm64]
+    Timeout: 10
+    MemorySize: 256
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref MainTable
+    Tags:
+      project: tripplanner
+
+Resources:
+  # ------------------------------------------------------------------ DynamoDB (tabla unica)
+  MainTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
+    Properties:
+      TableName: tripplanner-main
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - { AttributeName: PK, AttributeType: S }
+        - { AttributeName: SK, AttributeType: S }
+      KeySchema:
+        - { AttributeName: PK, KeyType: HASH }
+        - { AttributeName: SK, KeyType: RANGE }
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+
+  # ------------------------------------------------------------------------------- Cognito
+  PreSignUpFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-presignup
+      CodeUri: src/
+      Handler: presignup.handler
+      Description: Auto-confirma el registro (demostracion).
+
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: tripplanner-users
+      UsernameAttributes: [email]
+      AutoVerifiedAttributes: [email]
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireLowercase: true
+          RequireUppercase: true
+          RequireNumbers: true
+          RequireSymbols: false
+      LambdaConfig:
+        PreSignUp: !GetAtt PreSignUpFunction.Arn
+      Schema:
+        - { Name: email, AttributeDataType: String, Required: true, Mutable: true }
+
+  PreSignUpPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref PreSignUpFunction
+      Principal: cognito-idp.amazonaws.com
+      SourceArn: !GetAtt UserPool.Arn
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: tripplanner-web
+      GenerateSecret: false # cliente publico (navegador): sin secreto
+      # SRP es el flujo del navegador. USER_PASSWORD_AUTH se deja solo para las pruebas por consola (evidencias).
+      ExplicitAuthFlows: [ALLOW_USER_SRP_AUTH, ALLOW_USER_PASSWORD_AUTH, ALLOW_REFRESH_TOKEN_AUTH]
+      PreventUserExistenceErrors: ENABLED
+      AccessTokenValidity: 60
+      IdTokenValidity: 60
+      RefreshTokenValidity: 30
+      TokenValidityUnits: { AccessToken: minutes, IdToken: minutes, RefreshToken: days }
+
+  # ------------------------------------------------------------------------------ API HTTP
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Description: TripPlanner AI - API de negocio (canal 1)
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 40
+        ThrottlingRateLimit: 20
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref LocalOrigin
+          - !If [UseCloudFront, !Sub "https://${Distribution.DomainName}", !Ref LocalOrigin]
+        AllowMethods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+        AllowHeaders: [authorization, content-type]
+        MaxAge: 600
+      Auth:
+        DefaultAuthorizer: CognitoJwt
+        Authorizers:
+          CognitoJwt:
+            IdentitySource: $request.header.Authorization
+            JwtConfiguration:
+              issuer: !Sub "https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}"
+              audience:
+                - !Ref UserPoolClient
+
+  # ------------------------------------------------------------------------------ Lambdas
+  MeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-me
+      CodeUri: src/
+      Handler: me.handler
+      Description: Perfil, preferencias y dashboard.
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: [dynamodb:GetItem, dynamodb:PutItem, dynamodb:UpdateItem, dynamodb:Query]
+              Resource: !GetAtt MainTable.Arn
+      Events:
+        GetMe: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /me, Method: GET } }
+        PutMe: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /me, Method: PUT } }
+        GetPrefs: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /me/preferences, Method: GET } }
+        PutPrefs: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /me/preferences, Method: PUT } }
+        Dashboard: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /dashboard, Method: GET } }
+
+  TripsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-trips
+      CodeUri: src/
+      Handler: trips.handler
+      Description: CRUD de viajes (Tools create_trip, get_trips, update_trip).
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: [dynamodb:GetItem, dynamodb:PutItem, dynamodb:UpdateItem, dynamodb:DeleteItem, dynamodb:Query]
+              Resource: !GetAtt MainTable.Arn
+      Events:
+        Create: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /trips, Method: POST } }
+        List: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /trips, Method: GET } }
+        Get: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/trips/{id}", Method: GET } }
+        Update: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/trips/{id}", Method: PATCH } }
+        Delete: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/trips/{id}", Method: DELETE } }
+
+  ItinerariesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-itineraries
+      CodeUri: src/
+      Handler: itineraries.handler
+      Description: Itinerarios por dia (Tools create_itinerary, update_itinerary).
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: [dynamodb:GetItem, dynamodb:PutItem]
+              Resource: !GetAtt MainTable.Arn
+      Events:
+        Get: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/trips/{id}/itinerary", Method: GET } }
+        Create: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/trips/{id}/itinerary", Method: POST } }
+        Update: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/trips/{id}/itinerary", Method: PUT } }
+
+  ReservationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-reservations
+      CodeUri: src/
+      Handler: reservations.handler
+      Description: Reservas (Tools create_reservation, get_reservations, update_reservation).
+      Policies:
+        # Las transacciones (reembolso al cancelar) requieren permisos de PutItem/UpdateItem.
+        - Statement:
+            - Effect: Allow
+              Action: [dynamodb:GetItem, dynamodb:PutItem, dynamodb:UpdateItem, dynamodb:Query]
+              Resource: !GetAtt MainTable.Arn
+      Events:
+        Create: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /reservations, Method: POST } }
+        List: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /reservations, Method: GET } }
+        Get: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/reservations/{id}", Method: GET } }
+        Update: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/reservations/{id}", Method: PATCH } }
+
+  WalletFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-wallet
+      CodeUri: src/
+      Handler: wallet.handler
+      Description: Monedero simulado y compra atomica.
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: [dynamodb:GetItem, dynamodb:PutItem, dynamodb:UpdateItem, dynamodb:Query]
+              Resource: !GetAtt MainTable.Arn
+      Events:
+        Get: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /wallet, Method: GET } }
+        Topup: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /wallet/topup, Method: POST } }
+        Purchase: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /purchases, Method: POST } }
+
+  UtilsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-utils
+      CodeUri: src/
+      Handler: utils.handler
+      Timeout: 20
+      Description: Divisas y comparador bus vs avion (Tools convert_currency, compare_transport). Sin acceso a DynamoDB.
+      Environment:
+        Variables:
+          TABLE_NAME: unused # esta funcion no tiene permisos sobre la tabla
+      Events:
+        Fx: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /fx, Method: GET } }
+        Transport: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /transport, Method: GET } }
+
+  ConversationsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tripplanner-conversations
+      CodeUri: src/
+      Handler: conversations.handler
+      Timeout: 25
+      Description: Historial de conversaciones leido de la memoria de AgentCore (por usuario). Sin acceso a DynamoDB.
+      Environment:
+        Variables:
+          MEMORY_ID: !Ref MemoryId
+          TABLE_NAME: unused # esta funcion no tiene permisos sobre la tabla
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: [bedrock-agentcore:ListSessions, bedrock-agentcore:ListEvents, bedrock-agentcore:DeleteEvent]
+              Resource: !Sub "arn:${AWS::Partition}:bedrock-agentcore:${AWS::Region}:${AWS::AccountId}:memory/${MemoryId}"
+      Events:
+        List: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: /conversations, Method: GET } }
+        Get: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/conversations/{id}", Method: GET } }
+        Delete: { Type: HttpApi, Properties: { ApiId: !Ref HttpApi, Path: "/conversations/{id}", Method: DELETE } }
+
+  # ------------------------------------------------------------------- Frontend (S3 + CDN)
+  FrontendBucket:
+    Type: AWS::S3::Bucket
+    Condition: UseCloudFront
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: { SSEAlgorithm: AES256 }
+
+  OriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Condition: UseCloudFront
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${AWS::StackName}-oac"
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  SecurityHeaders:
+    Type: AWS::CloudFront::ResponseHeadersPolicy
+    Condition: UseCloudFront
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: !Sub "${AWS::StackName}-security-headers"
+        SecurityHeadersConfig:
+          StrictTransportSecurity: { AccessControlMaxAgeSec: 31536000, IncludeSubdomains: true, Override: true }
+          ContentTypeOptions: { Override: true }
+          FrameOptions: { FrameOption: DENY, Override: true }
+          ReferrerPolicy: { ReferrerPolicy: same-origin, Override: true }
+          ContentSecurityPolicy:
+            Override: true
+            ContentSecurityPolicy: !Sub >-
+              default-src 'self';
+              script-src 'self';
+              style-src 'self' 'unsafe-inline';
+              img-src 'self' data: https:;
+              font-src 'self' data:;
+              connect-src 'self' https://*.execute-api.${AWS::Region}.amazonaws.com ${AgentRuntimeHost} https://cognito-idp.${AWS::Region}.amazonaws.com;
+              frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Condition: UseCloudFront
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: TripPlanner AI frontend
+        DefaultRootObject: index.html
+        HttpVersion: http2and3
+        PriceClass: PriceClass_100
+        Origins:
+          - Id: s3-frontend
+            DomainName: !GetAtt FrontendBucket.RegionalDomainName
+            S3OriginConfig: { OriginAccessIdentity: "" }
+            OriginAccessControlId: !GetAtt OriginAccessControl.Id
+        DefaultCacheBehavior:
+          TargetOriginId: s3-frontend
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized (administrada)
+          ResponseHeadersPolicyId: !Ref SecurityHeaders
+        # SPA: las rutas de React se resuelven en el cliente.
+        CustomErrorResponses:
+          - { ErrorCode: 403, ResponseCode: 200, ResponsePagePath: /index.html, ErrorCachingMinTTL: 0 }
+          - { ErrorCode: 404, ResponseCode: 200, ResponsePagePath: /index.html, ErrorCachingMinTTL: 0 }
+
+  FrontendBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Condition: UseCloudFront
+    Properties:
+      Bucket: !Ref FrontendBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontRead
+            Effect: Allow
+            Principal: { Service: cloudfront.amazonaws.com }
+            Action: s3:GetObject
+            Resource: !Sub "${FrontendBucket.Arn}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${Distribution}"
+
+Outputs:
+  ApiUrl:
+    Value: !GetAtt HttpApi.ApiEndpoint
+  UserPoolId:
+    Value: !Ref UserPool
+  UserPoolClientId:
+    Value: !Ref UserPoolClient
+  UserPoolIssuer:
+    Value: !Sub "https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}"
+  TableName:
+    Value: !Ref MainTable
+  FrontendBucketName:
+    Condition: UseCloudFront
+    Value: !Ref FrontendBucket
+  FrontendUrl:
+    Condition: UseCloudFront
+    Value: !Sub "https://${Distribution.DomainName}"
+  DistributionId:
+    Condition: UseCloudFront
+    Value: !Ref Distribution

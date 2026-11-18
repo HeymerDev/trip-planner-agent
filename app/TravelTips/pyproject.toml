@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "TravelTips"
+version = "0.1.0"
+description = "Lambda tools for TripPlannerGateway (mock data)"
+requires-python = ">=3.10"
+# stdlib only
+dependencies = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]

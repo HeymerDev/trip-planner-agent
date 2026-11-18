@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-fixed": "#001e2c", "surface-container-high": "#dce9ff", "primary-fixed-dim": "#b7c4ff", "inverse-primary": "#b7c4ff", "on-primary-container": "#cad3ff", "surface-dim": "#cbdbf5", "tertiary-container": "#006387", "on-surface-variant": "#434655", "on-tertiary-fixed-variant": "#004c69", "background": "#f8f9ff", "inverse-on-surface": "#eaf1ff", "surface-container": "#e5eeff", "secondary-fixed-dim": "#4edea3", "on-secondary-container": "#00714d", "tertiary-fixed-dim": "#7bd0ff", "on-tertiary-container": "#a3dcff", "secondary-fixed": "#6ffbbe", "outline": "#747686", "on-tertiary": "#ffffff", "on-surface": "#0b1c30", "on-primary-fixed": "#001551", "on-primary": "#ffffff", "secondary": "#006c49", "on-secondary-fixed-variant": "#005236", "primary-container": "#1d4ed8", "inverse-surface": "#213145", "error-container": "#ffdad6", "surface-container-low": "#eff4ff", "on-primary-fixed-variant": "#0039b5", "surface-tint": "#2151da", "surface-container-lowest": "#ffffff", "primary-fixed": "#dce1ff", "on-background": "#0b1c30", "tertiary-fixed": "#c4e7ff", "on-secondary-fixed": "#002113", "on-error": "#ffffff", "tertiary": "#004a66", "surface": "#f8f9ff", "surface-variant": "#d3e4fe", "on-error-container": "#93000a", "surface-bright": "#f8f9ff", "surface-container-highest": "#d3e4fe", "secondary-container": "#6cf8bb", "outline-variant": "#c4c5d7", "primary": "#0037b0", "on-secondary": "#ffffff", "error": "#ba1a1a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1.5rem", "gutter": "1rem", "space-md": "0.75rem", "space-xs": "0.25rem", "space-lg": "1rem", "margin-mobile": "1rem", "space-sm": "0.5rem", "space-xl": "1.5rem", "gutter-mobile": "0.75rem" }, fontFamily: { "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"] }, fontSize: { "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }], "headline-lg-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Asistente de Viajes Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBcejVlkNR8L2b48ehVzgR84qAZ9OJoxEADMbCmIjrHH-n7uzuRA20kTUyr8qjb5AE13vu5se5ld_eNF5dCIKvp_-AkxKPPqm6tLYATHX_diuWZnz0ySL_7_mPyYmTzC2FsLflboBX_KXHE_Hx4Xp1aL0tCm1YP1KXQ-6ElEKrRNxw12r5EWCiaBK041c64a5zx8skDGjynSVKTinhTFO7UmgTCYscRK3M4UTdBCU8"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-tight">ViajeAI</span><span class="font-label-sm text-label-sm text-on-surface-variant font-normal leading-none">Mis Viajes</span></div></div><div class="flex items-center gap-space-sm"><button class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-11 h-11 flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdNPO78t3IidiPo7HRdQcN8X3V7sOsS7xJTuRg2dgOjYNlFgKNcajVdQIcHS6R7TjfEyY1j1wo6imKSvqZ5J1wK96vxb8t0XxSSYENU-U2vwpNS6-x3af10IE1lQJXx5nQkj8lwcvxMwSuFC9dxsLVRPTpWwesjqCspcgmWzy3LR_6EuO1BMU9iuSm7jFWj2TB6rCBmN6LGrpZp3aWU8wFfDsMJqszqasHOxFWb6s"/></div></div></div></header><main class="flex-1 w-full bg-surface pt-16 pb-28"><div class="flex flex-col w-full pb-6 px-margin-mobile">
+<!-- Dynamic Top Notification Banner -->
+<div class="fixed top-20 left-4 right-4 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="toastNotification">
+<div class="bg-inverse-surface text-inverse-on-surface p-space-md rounded-xl shadow-xl flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]" id="toastIcon">check_circle</span>
+<span class="font-body-md text-body-md" id="toastMessage">Operación completada con éxito</span>
+</div>
+<button class="text-inverse-on-surface/80 hover:text-inverse-on-surface" onclick="dismissToast()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- Header Section with Stats & Main Action -->
+<section class="flex flex-col gap-space-md pt-2">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">Mis Viajes</h1>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="flex h-2 w-2 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">
+<strong class="text-on-surface" id="activeCount">2 próximos</strong> · <span id="pastCount">1 pasado</span>
+</span>
+</div>
+</div>
+<button class="inline-flex items-center gap-1.5 bg-primary hover:bg-primary-container text-on-primary px-space-md py-2.5 rounded-full shadow-md active:scale-95 transition-all text-left" onclick="openModal('create')">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="font-label-md text-label-md tracking-wide">Crear viaje</span>
+</button>
+</div>
+<!-- Quick Utilities: Sync & Export -->
+<div class="flex items-center gap-space-xs bg-surface-container-low p-1.5 rounded-xl">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-space-xs rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" onclick="syncCalendarAction()">
+<span class="material-symbols-outlined text-[18px] text-tertiary">save_as</span>
+<span class="font-label-sm text-label-sm">Sincronizar</span>
+</button>
+<div class="w-[1px] h-4 bg-outline-variant/40"></div>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-1.5 px-space-xs rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" onclick="exportPdfAction()">
+<span class="material-symbols-outlined text-[18px] text-primary">picture_as_pdf</span>
+<span class="font-label-sm text-label-sm">Exportar PDF</span>
+</button>
+</div>
+<!-- Filter Pills Bar -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" role="tablist">
+<button class="filter-chip active-filter px-4 py-1.5 rounded-full font-label-md text-label-md bg-primary text-on-primary transition-all whitespace-nowrap shadow-sm" onclick="filterTrips('all', this)">
+        Todos
+      </button>
+<button class="filter-chip px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all whitespace-nowrap" onclick="filterTrips('proximos', this)">
+        Próximos (2)
+      </button>
+<button class="filter-chip px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all whitespace-nowrap" onclick="filterTrips('en-curso', this)">
+        En curso (0)
+      </button>
+<button class="filter-chip px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all whitespace-nowrap" onclick="filterTrips('pasados', this)">
+        Pasados (1)
+      </button>
+</div>
+</section>
+<!-- Trips List Stream -->
+<section class="flex flex-col gap-space-lg mt-space-md" id="tripsList">
+<!-- Card 1: Madrid (AI Confirmed) -->
+<article class="trip-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-[0_2px_12px_rgba(11,28,48,0.06)] overflow-hidden transition-transform duration-200" data-status="proximos" id="trip-madrid">
+<div class="relative w-full h-44 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Panoramic daytime view of Madrid's Cibeles Fountain and the grand City Hall palace under a clear vivid blue Mediterranean sky, pristine architectural details with warm stone facades, high-end travel editorial style matching vibrant cobalt and pure white branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZJOGKLA7e0uELvv30Lv-Be85WmbGwp7iYzB3CNQVs2NimZV3-b9LMmRpxtmuTP4ZVDuU0Z_xjMN4XTb_oN1rtZcn7idS2ohGJthd79CipzsjWiNGEu5Hi7uvH4aXzJvSLHGx9IcYFg5g1kV0FLtrY-mTAcrWHaLfYzExLBjk6pPstXA1bww8JgopmH_7h7RYtsmxT-q4nfvDEqJG99QB5DtzQzsRMSsr9gMAQ5UA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-black/20"></div>
+<!-- Status Badge -->
+<div class="absolute top-3 left-3">
+<span class="inline-flex items-center gap-1.5 bg-secondary-container/95 backdrop-blur-md text-on-secondary-container px-2.5 py-1 rounded-full font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+            Confirmado por IA
+          </span>
+</div>
+<!-- Context Menu Button -->
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface flex items-center justify-center shadow-md active:scale-90 transition-transform" onclick="toggleCardMenu(event, 'menu-madrid')">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="context-dropdown hidden absolute right-0 mt-1 w-44 bg-surface-container-lowest rounded-xl shadow-xl py-1 z-30" id="menu-madrid">
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-on-surface hover:bg-surface-container flex items-center gap-2" onclick="openModal('edit', 'Viaje a Madrid', '3 al 7 de dic, 2025', '1450', 'proximos')">
+<span class="material-symbols-outlined text-[18px] text-tertiary">edit</span>
+              Editar viaje
+            </button>
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-on-surface hover:bg-surface-container flex items-center gap-2" onclick="duplicateTrip('Viaje a Madrid')">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">content_copy</span>
+              Duplicar
+            </button>
+<div class="h-[1px] bg-surface-container my-1"></div>
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-error hover:bg-error-container/30 flex items-center gap-2" onclick="deleteTrip('trip-madrid', 'Viaje a Madrid')">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+              Eliminar viaje
+            </button>
+</div>
+</div>
+<!-- Overlaid Title and Dates -->
+<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-surface-container-high font-semibold">España</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-surface-container-lowest leading-tight">Viaje a Madrid</h2>
+<div class="flex items-center gap-1.5 text-surface-container-high/90 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">3 al 7 de dic · 5 días</span>
+</div>
+</div>
+</div>
+<!-- Card Body: Itinerary Summary Chips -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-surface-container-low text-on-surface-variant rounded-lg font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">flight_takeoff</span>
+            Vuelo EZE - MAD
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-surface-container-low text-on-surface-variant rounded-lg font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-tertiary">hotel</span>
+            Hotel Regina
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-surface-container-low text-on-surface-variant rounded-lg font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">museum</span>
+            Museo del Prado
+          </span>
+</div>
+<!-- Nested Breakdown Inset -->
+<div class="bg-surface-container-low p-2.5 rounded-lg flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Presupuesto estimado</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">$1,450 USD</span>
+</div>
+<button class="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-md text-label-md" onclick="showDetails('Madrid')">
+            Ver detalles
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Río de Janeiro (Manual Plan) -->
+<article class="trip-card group flex flex-col bg-surface-container-lowest rounded-xl shadow-[0_2px_12px_rgba(11,28,48,0.06)] overflow-hidden transition-transform duration-200" data-status="proximos" id="trip-rio">
+<div class="relative w-full h-44 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Breathtaking aerial viewpoint of Copacabana and Ipanema beach in Rio de Janeiro, with the Sugarloaf Mountain bathed in warm golden afternoon sunlight, vibrant turquoise waters, clean minimalist architectural framing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCpPTF8zaMyQwWEnC9ywcS7SnmSUNcodSvRj14snrKiAGt_ZdymR91eGmEHxAV9EX47LrLmmToRHlN84_jPniF1-MOhVacrrou1pS-vdDlVAAKVcROumDWvl-RQCgJ9YH1_0VPtiVcS95uZYjttTjzemN2sWt_3jYF8QkV7W9L3NfEDzjQ1j70mL2ddpYRs5ciITjGE3_-KVFKySt4_iCbIiGfa9i-3wI7iFMhTrs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-black/20"></div>
+<!-- Status Badge -->
+<div class="absolute top-3 left-3">
+<span class="inline-flex items-center gap-1.5 bg-surface-container-high text-primary px-2.5 py-1 rounded-full font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[14px]">edit_note</span>
+            Planificado Manualmente
+          </span>
+</div>
+<!-- Context Menu Button -->
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface flex items-center justify-center shadow-md active:scale-90 transition-transform" onclick="toggleCardMenu(event, 'menu-rio')">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="context-dropdown hidden absolute right-0 mt-1 w-44 bg-surface-container-lowest rounded-xl shadow-xl py-1 z-30" id="menu-rio">
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-on-surface hover:bg-surface-container flex items-center gap-2" onclick="openModal('edit', 'Escapada a Río de Janeiro', '15 al 20 de enero, 2026', '890', 'proximos')">
+<span class="material-symbols-outlined text-[18px] text-tertiary">edit</span>
+              Editar viaje
+            </button>
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-on-surface hover:bg-surface-container flex items-center gap-2" onclick="duplicateTrip('Escapada a Río de Janeiro')">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">content_copy</span>
+              Duplicar
+            </button>
+<div class="h-[1px] bg-surface-container my-1"></div>
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-error hover:bg-error-container/30 flex items-center gap-2" onclick="deleteTrip('trip-rio', 'Escapada a Río de Janeiro')">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+              Eliminar viaje
+            </button>
+</div>
+</div>
+<!-- Overlaid Title and Dates -->
+<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-surface-container-high font-semibold">Brasil</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-surface-container-lowest leading-tight">Escapada a Río de Janeiro</h2>
+<div class="flex items-center gap-1.5 text-surface-container-high/90 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span class="font-body-sm text-body-sm">15 al 20 de enero · 6 días</span>
+</div>
+</div>
+</div>
+<!-- Card Body: Sub Details & Quick Actions -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex flex-wrap gap-1.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-surface-container-low text-on-surface-variant rounded-lg font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">airplane_ticket</span>
+            Vuelo G3 7450
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-surface-container-low text-on-surface-variant rounded-lg font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-tertiary">apartment</span>
+            Copacabana Hotel
+          </span>
+</div>
+<!-- Quick Action Buttons Row -->
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 px-3 bg-surface-container-high hover:bg-surface-variant text-primary rounded-full font-label-md text-label-md text-center transition-colors" onclick="showDetails('Río de Janeiro')">
+            Ver detalle
+          </button>
+<button class="flex-1 py-2 px-3 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-full font-label-md text-label-md text-center transition-colors flex items-center justify-center gap-1" onclick="openModal('edit', 'Escapada a Río de Janeiro', '15 al 20 de enero, 2026', '890', 'proximos')">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">edit</span>
+            Editar
+          </button>
+</div>
+</div>
+</article>
+<!-- Card 3: Bariloche (Past Trip) -->
+<article class="trip-card group flex flex-col bg-surface-container-lowest/80 rounded-xl shadow-[0_1px_6px_rgba(11,28,48,0.04)] overflow-hidden transition-all duration-200" data-status="pasados" id="trip-bariloche">
+<div class="relative w-full h-36 bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover filter grayscale contrast-125 opacity-75 group-hover:opacity-90 transition-opacity" data-alt="Serene snowy landscape of San Carlos de Bariloche, Nahuel Huapi lake surrounded by snow-capped Andean mountains, calm overcast winter sky, subtle minimalist cool tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiV6XIrB_vyEbRPvVIk_jvZtOJHhsknBz7A8Qx-bbD47NWDFEc2RoKKEZS9hQLC9KYKENoccorHVLE-3rbCntrfUkugFfhnqEEv4p9h-qlHnZ0vznFGwCxIK3lyXTTjiqjbObZPJNIsGQzMr1Mxq3uhgLDtltUf46TmG_gst2-bZoAOB1Xx79XzKyuVZiDp41tOPB9_IxuuPOXkmPX37ZzNUcOWrT5h0uhy8nYSis"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/30 to-black/20"></div>
+<!-- Past Status Badge -->
+<div class="absolute top-3 left-3">
+<span class="inline-flex items-center gap-1.5 bg-surface-container-highest/90 text-on-surface-variant px-2.5 py-1 rounded-full font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+            Finalizado
+          </span>
+</div>
+<!-- Context Menu Button -->
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface flex items-center justify-center shadow-sm" onclick="toggleCardMenu(event, 'menu-bariloche')">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+<!-- Dropdown Menu -->
+<div class="context-dropdown hidden absolute right-0 mt-1 w-44 bg-surface-container-lowest rounded-xl shadow-xl py-1 z-30" id="menu-bariloche">
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-on-surface hover:bg-surface-container flex items-center gap-2" onclick="duplicateTrip('Bariloche en Invierno')">
+<span class="material-symbols-outlined text-[18px] text-primary">replay</span>
+              Volver a planear
+            </button>
+<div class="h-[1px] bg-surface-container my-1"></div>
+<button class="w-full px-3 py-2 text-left font-label-md text-label-md text-error hover:bg-error-container/30 flex items-center gap-2" onclick="deleteTrip('trip-bariloche', 'Bariloche en Invierno')">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+              Eliminar registro
+            </button>
+</div>
+</div>
+<!-- Overlaid Title and Dates -->
+<div class="absolute bottom-3 left-3 right-3 text-surface-container-lowest">
+<p class="font-label-sm text-label-sm uppercase tracking-wider text-surface-container-high/80 font-semibold">Argentina</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-surface-container-lowest leading-tight">Bariloche en Invierno</h2>
+<div class="flex items-center gap-1.5 text-surface-container-high/80 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">event_available</span>
+<span class="font-body-sm text-body-sm">10 al 18 de julio, 2024 · 9 días</span>
+</div>
+</div>
+</div>
+<!-- Card Body: Past Summary & Rebook CTA -->
+<div class="p-space-md flex items-center justify-between">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-secondary">verified</span>
+<span class="font-body-sm text-body-sm">Completado con éxito</span>
+</div>
+<button class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-container" onclick="duplicateTrip('Bariloche en Invierno')">
+          Repetir viaje
+          <span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Empty State Placeholder (hidden by default) -->
+<div class="hidden flex flex-col items-center justify-center py-12 text-center" id="emptyFilterState">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[32px]">flight_takeoff</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">No hay viajes en esta sección</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-1">Explora nuevos destinos o agrega un itinerario de forma manual.</p>
+<button class="mt-4 px-4 py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md" onclick="openModal('create')">
+      + Crear nuevo viaje
+    </button>
+</div>
+<!-- CRUD Modal Drawer (Create / Edit) -->
+<div class="fixed inset-0 z-50 hidden bg-on-surface/40 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity" id="tripModal">
+<div class="w-full max-w-md bg-surface-container-lowest rounded-t-3xl sm:rounded-2xl p-space-lg shadow-2xl flex flex-col gap-space-md max-h-[795px] overflow-y-auto">
+<div class="flex items-center justify-between pb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface" id="modalTitle">Crear viaje manual</h3>
+<button class="w-9 h-9 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center hover:bg-surface-variant" onclick="closeModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<form class="flex flex-col gap-space-md" id="tripForm" onsubmit="handleFormSubmit(event)">
+<input id="formMode" type="hidden" value="create"/>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium">Nombre del destino o viaje</label>
+<div class="flex items-center bg-surface-container-low rounded-xl px-3 py-2.5">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant mr-2">place</span>
+<input class="bg-transparent font-body-md text-body-md text-on-surface focus:outline-none w-full placeholder:text-outline" id="tripName" placeholder="Ej: Tokio de Primavera" required="" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium">Fechas estimadas</label>
+<div class="flex items-center bg-surface-container-low rounded-xl px-3 py-2.5">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant mr-2">date_range</span>
+<input class="bg-transparent font-body-md text-body-md text-on-surface focus:outline-none w-full placeholder:text-outline" id="tripDates" placeholder="Ej: 12 al 22 de Abril, 2026" required="" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium">Presupuesto ($ USD)</label>
+<div class="flex items-center bg-surface-container-low rounded-xl px-3 py-2.5">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant mr-2">payments</span>
+<input class="bg-transparent font-body-md text-body-md text-on-surface focus:outline-none w-full placeholder:text-outline" id="tripBudget" placeholder="1200" type="number"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium">Estado</label>
+<div class="flex items-center bg-surface-container-low rounded-xl px-2 py-2.5">
+<select class="bg-transparent font-body-md text-body-md text-on-surface focus:outline-none w-full cursor-pointer" id="tripStatusSelect">
+<option value="proximos">Próximo</option>
+<option value="en-curso">En curso</option>
+<option value="pasados">Pasado</option>
+</select>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pt-2">
+<button class="flex-1 py-3 bg-surface-container hover:bg-surface-variant text-on-surface font-label-lg text-label-lg rounded-full transition-colors text-center" onclick="closeModal()" type="button">
+            Cancelar
+          </button>
+<button class="flex-1 py-3 bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg rounded-full shadow-md transition-colors text-center" type="submit">
+            Guardar viaje
+          </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+  // Close context dropdowns when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.context-dropdown') && !e.target.closest('button[onclick^="toggleCardMenu"]')) {
+      document.querySelectorAll('.context-dropdown').forEach(el => el.classList.add('hidden'));
+    }
+  });
+
+  function toggleCardMenu(event, menuId) {
+    event.stopPropagation();
+    const targetMenu = document.getElementById(menuId);
+    document.querySelectorAll('.context-dropdown').forEach(el => {
+      if (el !== targetMenu) el.classList.add('hidden');
+    });
+    if (targetMenu) {
+      targetMenu.classList.toggle('hidden');
+    }
+  }
+
+  function filterTrips(status, clickedBtn) {
+    // Button styling toggle
+    document.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+      btn.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+    });
+    clickedBtn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+    clickedBtn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+
+    const cards = document.querySelectorAll('.trip-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      if (status === 'all' || card.getAttribute('data-status') === status) {
+        card.style.display = 'flex';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const emptyBox = document.getElementById('emptyFilterState');
+    if (visibleCount === 0) {
+      emptyBox.classList.remove('hidden');
+    } else {
+      emptyBox.classList.add('hidden');
+    }
+  }
+
+  function triggerToast(message, icon = 'check_circle') {
+    const toast = document.getElementById('toastNotification');
+    const toastMsg = document.getElementById('toastMessage');
+    const toastIco = document.getElementById('toastIcon');
+    
+    toastMsg.textContent = message;
+    toastIco.textContent = icon;
+
+    toast.classList.remove('opacity-0', '-translate-y-24', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    setTimeout(() => {
+      dismissToast();
+    }, 3200);
+  }
+
+  function dismissToast() {
+    const toast = document.getElementById('toastNotification');
+    toast.classList.remove('opacity-100', 'translate-y-0');
+    toast.classList.add('opacity-0', '-translate-y-24', 'pointer-events-none');
+  }
+
+  function openModal(mode, name = '', dates = '', budget = '', status = 'proximos') {
+    const modal = document.getElementById('tripModal');
+    const title = document.getElementById('modalTitle');
+    const formMode = document.getElementById('formMode');
+
+    formMode.value = mode;
+    if (mode === 'edit') {
+      title.textContent = 'Editar viaje';
+      document.getElementById('tripName').value = name;
+      document.getElementById('tripDates').value = dates;
+      document.getElementById('tripBudget').value = budget;
+      document.getElementById('tripStatusSelect').value = status;
+    } else {
+      title.textContent = 'Crear viaje manual';
+      document.getElementById('tripForm').reset();
+    }
+
+    modal.classList.remove('hidden');
+    document.querySelectorAll('.context-dropdown').forEach(el => el.classList.add('hidden'));
+  }
+
+  function closeModal() {
+    document.getElementById('tripModal').classList.add('hidden');
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const mode = document.getElementById('formMode').value;
+    const name = document.getElementById('tripName').value;
+
+    closeModal();
+    if (mode === 'create') {
+      triggerToast(`¡Viaje a ${name} creado con éxito!`);
+      // Simular incremento en el contador activo
+      const activeCounter = document.getElementById('activeCount');
+      activeCounter.textContent = '3 próximos';
+    } else {
+      triggerToast(`Itinerario de ${name} actualizado.`);
+    }
+  }
+
+  function deleteTrip(cardId, name) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+
+    if (confirm(`¿Estás seguro de que deseas eliminar '${name}'?`)) {
+      card.style.transition = 'all 0.3s ease-out';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        card.remove();
+        triggerToast(`'${name}' ha sido eliminado`, 'delete');
+        updateCounts();
+      }, 300);
+    }
+  }
+
+  function duplicateTrip(name) {
+    triggerToast(`Copia de '${name}' guardada en borradores`, 'content_copy');
+    document.querySelectorAll('.context-dropdown').forEach(el => el.classList.add('hidden'));
+  }
+
+  function updateCounts() {
+    const proximos = document.querySelectorAll('.trip-card[data-status="proximos"]').length;
+    const pasados = document.querySelectorAll('.trip-card[data-status="pasados"]').length;
+    document.getElementById('activeCount').textContent = `${proximos} próximos`;
+    document.getElementById('pastCount').textContent = `${pasados} pasado${pasados === 1 ? '' : 's'}`;
+  }
+
+  function syncCalendarAction() {
+    triggerToast('Sincronizando itinerarios con Google Calendar...', 'sync');
+  }
+
+  function exportPdfAction() {
+    triggerToast('Generando reporte PDF con todos tus vouchers...', 'download');
+  }
+
+  function showDetails(destination) {
+    triggerToast(`Cargando mapa y vouchers de ${destination}...`, 'map');
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(15,23,42,0.05)]" data-active-classes="text-primary font-semibold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 py-1 text-on-surface-variant transition-colors" data-path="asistente-ia" href="#"><span class="material-symbols-outlined text-[24px]">smart_toy</span><span class="font-label-sm text-label-sm mt-0.5">Asistente IA</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 py-1 transition-colors text-primary font-semibold" data-path="mis-viajes" href="#"><span class="material-symbols-outlined text-[24px]">luggage</span><span class="font-label-sm text-label-sm mt-0.5">Mis Viajes</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 py-1 text-on-surface-variant transition-colors" data-path="nuevo-viaje" href="#"><span class="material-symbols-outlined text-[24px]">add_circle</span><span class="font-label-sm text-label-sm mt-0.5">Nuevo Viaje</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] flex-1 py-1 text-on-surface-variant transition-colors" data-path="preferencias" href="#"><span class="material-symbols-outlined text-[24px]">tune</span><span class="font-label-sm text-label-sm mt-0.5">Preferencias</span></a></div></nav></body></html>

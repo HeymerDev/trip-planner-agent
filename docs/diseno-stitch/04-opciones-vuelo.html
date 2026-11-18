@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-fixed": "#001e2c", "surface-container-high": "#dce9ff", "primary-fixed-dim": "#b7c4ff", "inverse-primary": "#b7c4ff", "on-primary-container": "#cad3ff", "surface-dim": "#cbdbf5", "tertiary-container": "#006387", "on-surface-variant": "#434655", "on-tertiary-fixed-variant": "#004c69", "background": "#f8f9ff", "inverse-on-surface": "#eaf1ff", "surface-container": "#e5eeff", "secondary-fixed-dim": "#4edea3", "on-secondary-container": "#00714d", "tertiary-fixed-dim": "#7bd0ff", "on-tertiary-container": "#a3dcff", "secondary-fixed": "#6ffbbe", "outline": "#747686", "on-tertiary": "#ffffff", "on-surface": "#0b1c30", "on-primary-fixed": "#001551", "on-primary": "#ffffff", "secondary": "#006c49", "on-secondary-fixed-variant": "#005236", "primary-container": "#1d4ed8", "inverse-surface": "#213145", "error-container": "#ffdad6", "surface-container-low": "#eff4ff", "on-primary-fixed-variant": "#0039b5", "surface-tint": "#2151da", "surface-container-lowest": "#ffffff", "primary-fixed": "#dce1ff", "on-background": "#0b1c30", "tertiary-fixed": "#c4e7ff", "on-secondary-fixed": "#002113", "on-error": "#ffffff", "tertiary": "#004a66", "surface": "#f8f9ff", "surface-variant": "#d3e4fe", "on-error-container": "#93000a", "surface-bright": "#f8f9ff", "surface-container-highest": "#d3e4fe", "secondary-container": "#6cf8bb", "outline-variant": "#c4c5d7", "primary": "#0037b0", "on-secondary": "#ffffff", "error": "#ba1a1a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1.5rem", "gutter": "1rem", "space-md": "0.75rem", "space-xs": "0.25rem", "space-lg": "1rem", "margin-mobile": "1rem", "space-sm": "0.5rem", "space-xl": "1.5rem", "gutter-mobile": "0.75rem" }, fontFamily: { "headline-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"] }, fontSize: { "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }], "headline-lg-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Volver" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:text-primary transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span></button><img alt="Asistente de Viajes Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBcejVlkNR8L2b48ehVzgR84qAZ9OJoxEADMbCmIjrHH-n7uzuRA20kTUyr8qjb5AE13vu5se5ld_eNF5dCIKvp_-AkxKPPqm6tLYATHX_diuWZnz0ySL_7_mPyYmTzC2FsLflboBX_KXHE_Hx4Xp1aL0tCm1YP1KXQ-6ElEKrRNxw12r5EWCiaBK041c64a5zx8skDGjynSVKTinhTFO7UmgTCYscRK3M4UTdBCU8"/><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight ml-space-xs">Detalle De Vuelo</h1></div><div class="flex items-center gap-space-sm"><div class="w-11 h-11 flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdNPO78t3IidiPo7HRdQcN8X3V7sOsS7xJTuRg2dgOjYNlFgKNcajVdQIcHS6R7TjfEyY1j1wo6imKSvqZ5J1wK96vxb8t0XxSSYENU-U2vwpNS6-x3af10IE1lQJXx5nQkj8lwcvxMwSuFC9dxsLVRPTpWwesjqCspcgmWzy3LR_6EuO1BMU9iuSm7jFWj2TB6rCBmN6LGrpZp3aWU8wFfDsMJqszqasHOxFWb6s"/></div></div></div></header><main class="flex-1 w-full bg-surface pt-16 pb-safe"><div class="flex flex-col w-full pb-28">
+<!-- Sub-header navigation row with contextual breadcrumb -->
+<div class="px-margin-mobile pt-3 pb-2 flex items-center justify-between">
+<button class="inline-flex items-center gap-space-xs text-primary font-label-md text-label-md py-1 px-2.5 rounded-full bg-primary-fixed/40 active:bg-primary-fixed transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+<span>Volver al Asistente</span>
+</button>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>3 alternativas activas</span>
+</div>
+</div>
+<!-- Agent Message Bubble (Conversational Delight) -->
+<section class="px-margin-mobile my-2">
+<div class="relative bg-surface-container-low rounded-xl p-space-lg shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-md">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1 mb-1">
+<span class="font-label-md text-label-md text-primary font-semibold">Agente Concierge de Vuelos</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hace 1 min</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+            Encontré 3 alternativas para tu viaje <span class="font-semibold text-primary">EZE → MAD</span> del <span class="font-semibold">3 al 7 dic</span>. Elige la que mejor se adapte a ti:
+          </p>
+</div>
+</div>
+<!-- Subtle visual route preview card -->
+<div class="mt-3 pt-3 flex items-center justify-between bg-surface-container-lowest/80 rounded-lg p-2.5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">flight_takeoff</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Buenos Aires (EZE)</p>
+<p class="font-headline-sm text-headline-sm text-on-surface">3 Dic, 21:50</p>
+</div>
+</div>
+<div class="flex flex-col items-center px-2">
+<span class="font-label-sm text-label-sm text-outline">Ida y vuelta</span>
+<span class="material-symbols-outlined text-outline text-[18px]">sync_alt</span>
+</div>
+<div class="flex items-center gap-2 text-right">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Madrid (MAD)</p>
+<p class="font-headline-sm text-headline-sm text-on-surface">7 Dic, 14:30</p>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]">flight_land</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Flight Cards Stream -->
+<section class="px-margin-mobile flex flex-col gap-3 mt-2" id="flightOptionsList">
+<!-- Opción 1: Recomendada (Default Selected) -->
+<article class="flight-card cursor-pointer relative bg-surface-container-lowest rounded-xl p-4 shadow-sm transition-all duration-200" id="card-opt-1" onclick="selectFlightOption(1)">
+<!-- Active state ring simulator using background inset pill -->
+<div class="absolute -top-2.5 right-4 z-10 flex items-center gap-1 bg-secondary text-on-secondary px-2.5 py-0.5 rounded-full text-label-sm font-label-sm shadow-sm" id="check-indicator-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+<span>Recomendado por IA</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">airlines</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Iberia</h2>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">IB6844</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary font-medium">Directo • 12h 40m</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">$1,180</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">USD total</span>
+</div>
+</div>
+<!-- Flight timing bar -->
+<div class="mt-3.5 bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between">
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">21:50</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">EZE • T4</p>
+</div>
+<div class="flex-1 px-3 flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-secondary font-medium">Sin escalas</span>
+<div class="w-full flex items-center gap-1 my-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div class="flex-1 h-0.5 bg-secondary-container"></div>
+<span class="material-symbols-outlined text-[14px] text-secondary">flight</span>
+<div class="flex-1 h-0.5 bg-secondary-container"></div>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Airbus A350-900</span>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-on-surface">14:30<sup class="text-secondary font-bold">+1</sup></p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">MAD • T4S</p>
+</div>
+</div>
+<!-- Perks tags -->
+<div class="mt-3 flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-secondary">luggage</span>
+          Equipaje en bodega incluido
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">restaurant</span>
+          Cena y desayuno
+        </span>
+</div>
+<!-- Card CTA -->
+<div class="mt-3.5 flex items-center justify-between gap-3 pt-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+          Mejor relación precio/tiempo
+        </span>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center gap-1.5 shadow-sm active:scale-95 transition-transform" id="btn-select-1">
+<span class="material-symbols-outlined text-[18px]">done</span>
+<span>Seleccionado</span>
+</button>
+</div>
+</article>
+<!-- Opción 2: Más económico -->
+<article class="flight-card cursor-pointer relative bg-surface-container-lowest rounded-xl p-4 shadow-sm opacity-90 transition-all duration-200" id="card-opt-2" onclick="selectFlightOption(2)">
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">flight</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Air Europa</h2>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">UX042</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">1 escala corta • 15h 10m</p>
+</div>
+</div>
+<div class="text-right">
+<div class="inline-block px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm mb-0.5">
+            Ahorro $240
+          </div>
+<span class="block font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">$940</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">USD total</span>
+</div>
+</div>
+<!-- Flight timing bar -->
+<div class="mt-3.5 bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between">
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">19:15</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">EZE</p>
+</div>
+<div class="flex-1 px-3 flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Escala 1h 45m en Salvador (SSA)</span>
+<div class="w-full flex items-center gap-1 my-1">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<div class="flex-1 h-0.5 bg-outline-variant"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<div class="flex-1 h-0.5 bg-outline-variant"></div>
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Boeing 787-9</span>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-on-surface">14:25<sup class="text-primary font-bold">+1</sup></p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">MAD • T1</p>
+</div>
+</div>
+<!-- Perks tags -->
+<div class="mt-3 flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">backpack</span>
+          Mochila + Carry-on 10kg
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+          Bodega: +$65 USD
+        </span>
+</div>
+<!-- Card CTA -->
+<div class="mt-3.5 flex items-center justify-between gap-3 pt-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Opción más económica</span>
+<button class="px-4 py-2 rounded-full bg-surface-container text-primary font-label-md text-label-md flex items-center gap-1.5 active:scale-95 transition-transform" id="btn-select-2">
+<span>Seleccionar</span>
+</button>
+</div>
+</article>
+<!-- Opción 3: Premium Economy -->
+<article class="flight-card cursor-pointer relative bg-surface-container-lowest rounded-xl p-4 shadow-sm opacity-90 transition-all duration-200" id="card-opt-3" onclick="selectFlightOption(3)">
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">workspace_premium</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">LATAM / Level</h2>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">LA2601</span>
+</div>
+<p class="font-body-sm text-body-sm text-tertiary-container font-medium">Directo • Premium Economy</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">$1,650</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">USD total</span>
+</div>
+</div>
+<!-- Flight timing bar -->
+<div class="mt-3.5 bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between">
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">23:10</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">EZE</p>
+</div>
+<div class="flex-1 px-3 flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-secondary font-medium">Vuelo Nocturno Directo</span>
+<div class="w-full flex items-center gap-1 my-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div class="flex-1 h-0.5 bg-secondary-container"></div>
+<span class="material-symbols-outlined text-[14px] text-secondary">flight</span>
+<div class="flex-1 h-0.5 bg-secondary-container"></div>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<span class="font-label-sm text-label-sm text-outline">A330-200 • Reclinación 135°</span>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-on-surface">16:00<sup class="text-secondary font-bold">+1</sup></p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">MAD • T4</p>
+</div>
+</div>
+<!-- Perks tags -->
+<div class="mt-3 flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">airline_seat_recline_extra</span>
+          Asiento 96cm espacio
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-secondary">luggage</span>
+          2 valijas x 23kg
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+          Embarque prioritario
+        </span>
+</div>
+<!-- Card CTA -->
+<div class="mt-3.5 flex items-center justify-between gap-3 pt-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Máximo confort</span>
+<button class="px-4 py-2 rounded-full bg-surface-container text-primary font-label-md text-label-md flex items-center gap-1.5 active:scale-95 transition-transform" id="btn-select-3">
+<span>Seleccionar</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Visual Break / Destination Snippet -->
+<section class="px-margin-mobile mt-4">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-high p-4 flex items-center gap-3">
+<div class="w-16 h-16 rounded-lg overflow-hidden shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Vibrant panoramic view of Gran Via in Madrid at sunset, warm golden hour illumination reflecting on neoclassical Spanish architecture, lively modern metropolitan European travel vibe, rich tones matching blue and warm amber." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhlAWoqPRZbUBepfERAmxQsHi7yweWg_VAvo2L3qa46xpcJGiz05neKMhNgns5yA286d61T11EcqlxDvM9Qdx5dGNXkZhYSqXTXSuT4zOkpCNPH96o1kEHmXKmIAGNxA3w_s35ro_gOebYOaaW0mgcrtZmIx-vUWHd-WOw_rfEl5JO8E5iBkHLY-cqw9ba3JB_xwaWQ96NflHwP2aLOKBRNln0tcGztzQnlfSw2-M"/>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Tu Destino</span>
+<p class="font-headline-sm text-headline-sm text-on-surface truncate">Madrid • Clima: 14°C despejado</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Llegada puntual prevista para el mediodía.</p>
+</div>
+</div>
+</section>
+<!-- Detailed Breakdown for Selected Flight -->
+<section class="px-margin-mobile mt-4">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">info</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Detalle de la opción elegida</h3>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm" id="detailBadgeAirlines">Iberia Directo</span>
+</div>
+<!-- Bento-style micro grid with amenities -->
+<div class="grid grid-cols-2 gap-2 text-left pt-1">
+<div class="bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex items-center gap-1.5 text-primary mb-1">
+<span class="material-symbols-outlined text-[18px]">event_seat</span>
+<span class="font-label-md text-label-md font-semibold">Asientos</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface" id="detailSeats">Selección estándar incluida (Fila 14 a 28)</p>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex items-center gap-1.5 text-secondary mb-1">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-md text-label-md font-semibold">Cancelación</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface" id="detailRefund">Reembolso 100% con bono o cambio sin cargo</p>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex items-center gap-1.5 text-primary mb-1">
+<span class="material-symbols-outlined text-[18px]">luggage</span>
+<span class="font-label-md text-label-md font-semibold">Equipaje</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface" id="detailLuggage">1 carry-on (10kg) + 1 despachada (23kg)</p>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex items-center gap-1.5 text-tertiary mb-1">
+<span class="material-symbols-outlined text-[18px]">co2</span>
+<span class="font-label-md text-label-md font-semibold">Emisiones</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">-18% CO2 respecto al promedio de ruta</p>
+</div>
+</div>
+<!-- Summary Price Breakdown -->
+<div class="mt-3 pt-3 flex flex-col gap-1.5">
+<div class="flex justify-between items-center text-on-surface-variant font-body-sm text-body-sm">
+<span>Tarifa base adulto (x1)</span>
+<span id="priceBase">$980 USD</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-body-sm text-body-sm">
+<span>Impuestos y tasas aéreas</span>
+<span id="priceTaxes">$200 USD</span>
+</div>
+<div class="flex justify-between items-center pt-2 mt-1 font-headline-sm text-headline-sm text-on-surface">
+<span>Total garantizado</span>
+<span class="text-primary font-bold" id="priceTotal">$1,180 USD</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Sticky Confirmation Bar at bottom -->
+<aside class="fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-xl px-margin-mobile py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]">
+<div class="max-w-md mx-auto flex items-center justify-between gap-4">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Total a confirmar</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold" id="floatingTotalPrice">$1,180</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">USD</span>
+</div>
+</div>
+<button class="flex-1 h-12 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-lg shadow-primary/20 active:scale-95 transition-all" id="btnConfirmSelection" onclick="confirmTrip()">
+<span>Confirmar Selección</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</aside>
+<!-- Interactive toast feedback modal (hidden by default) -->
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-inverse-surface text-inverse-on-surface px-4 py-2.5 rounded-full shadow-xl flex items-center gap-2 transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-2" id="toastNotification">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">check_circle</span>
+<span class="font-label-md text-label-md" id="toastMessage">Vuelo guardado en tu itinerario</span>
+</div>
+</div>
+<script>
+  // Simple state machine for interactive flight selection
+  const flightDetails = {
+    1: {
+      name: 'Iberia Directo',
+      seats: 'Selección estándar incluida (Fila 14 a 28)',
+      refund: 'Reembolso 100% con bono o cambio flexible',
+      luggage: '1 carry-on (10kg) + 1 despachada (23kg)',
+      base: '$980 USD',
+      taxes: '$200 USD',
+      total: '$1,180'
+    },
+    2: {
+      name: 'Air Europa (1 Escala)',
+      seats: 'Asiento asignado al hacer check-in online',
+      refund: 'Cambio con penalidad de $90 USD',
+      luggage: 'Solo equipaje de mano 10kg incluido',
+      base: '$780 USD',
+      taxes: '$160 USD',
+      total: '$940'
+    },
+    3: {
+      name: 'LATAM / Level (Premium)',
+      seats: 'Asiento reclinable con espacio extra (Fila 1 a 4)',
+      refund: 'Cancelación gratuita hasta 48h antes',
+      luggage: '2 valijas despachadas de 23kg + Carry-on',
+      base: '$1,390 USD',
+      taxes: '$260 USD',
+      total: '$1,650'
+    }
+  };
+
+  let currentSelected = 1;
+
+  function selectFlightOption(optionId) {
+    currentSelected = optionId;
+    
+    // Update cards styling
+    [1, 2, 3].forEach(id => {
+      const card = document.getElementById(`card-opt-${id}`);
+      const btn = document.getElementById(`btn-select-${id}`);
+      const isCurrent = id === optionId;
+
+      if (isCurrent) {
+        card.classList.remove('opacity-90');
+        card.classList.add('bg-surface-container-lowest', 'shadow-md');
+        btn.className = "px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center gap-1.5 shadow-sm active:scale-95 transition-transform";
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done</span><span>Seleccionado</span>';
+      } else {
+        card.classList.add('opacity-90');
+        card.classList.remove('shadow-md');
+        btn.className = "px-4 py-2 rounded-full bg-surface-container text-primary font-label-md text-label-md flex items-center gap-1.5 active:scale-95 transition-transform";
+        btn.innerHTML = '<span>Seleccionar</span>';
+      }
+    });
+
+    // Update Detail section dynamically
+    const data = flightDetails[optionId];
+    document.getElementById('detailBadgeAirlines').innerText = data.name;
+    document.getElementById('detailSeats').innerText = data.seats;
+    document.getElementById('detailRefund').innerText = data.refund;
+    document.getElementById('detailLuggage').innerText = data.luggage;
+    document.getElementById('priceBase').innerText = data.base;
+    document.getElementById('priceTaxes').innerText = data.taxes;
+    document.getElementById('priceTotal').innerText = `${data.total} USD`;
+    document.getElementById('floatingTotalPrice').innerText = data.total;
+
+    showToast(`Opción ${data.name} seleccionada`);
+  }
+
+  function confirmTrip() {
+    const data = flightDetails[currentSelected];
+    showToast(`¡Vuelo ${data.name} reservado con éxito!`);
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toastNotification');
+    const msg = document.getElementById('toastMessage');
+    msg.innerText = message;
+    toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 2400);
+  }
+</script></main></body></html>

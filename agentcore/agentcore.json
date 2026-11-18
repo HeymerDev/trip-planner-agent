@@ -1,0 +1,222 @@
+{
+  "$schema": "https://schema.agentcore.aws.dev/v1/agentcore.json",
+  "name": "tripplanner",
+  "version": 1,
+  "managedBy": "CDK",
+  "tags": {
+    "agentcore:created-by": "agentcore-cli",
+    "agentcore:project-name": "tripplanner"
+  },
+  "runtimes": [
+    {
+      "name": "FlightsAgent",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/FlightsAgent/",
+      "runtimeVersion": "PYTHON_3_12",
+      "networkMode": "PUBLIC",
+      "protocol": "A2A",
+      "authorizerType": "AWS_IAM"
+    },
+    {
+      "name": "WeatherAgent",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/WeatherAgent/",
+      "runtimeVersion": "PYTHON_3_12",
+      "networkMode": "PUBLIC",
+      "protocol": "A2A",
+      "authorizerType": "AWS_IAM"
+    },
+    {
+      "name": "OrchestratorAgent",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/OrchestratorAgent/",
+      "runtimeVersion": "PYTHON_3_12",
+      "envVars": [
+        {
+          "name": "FLIGHTS_AGENT_URL",
+          "value": "https://bedrock-agentcore.us-east-2.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-2%3A406868032460%3Aruntime%2Ftripplanner_FlightsAgent-sbe2oe6mD7/invocations"
+        },
+        {
+          "name": "WEATHER_AGENT_URL",
+          "value": "https://bedrock-agentcore.us-east-2.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-2%3A406868032460%3Aruntime%2Ftripplanner_WeatherAgent-TcogwZHWtC/invocations"
+        },
+        {
+          "name": "HOTELS_AGENT_URL",
+          "value": "https://bedrock-agentcore.us-east-2.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-2%3A406868032460%3Aruntime%2Ftripplanner_HotelsAgent-ZrTpWi7RPu/invocations"
+        },
+        {
+          "name": "A2A_AUTH_MODE",
+          "value": "sigv4"
+        },
+        {
+          "name": "API_URL",
+          "value": "https://1uyl298pkh.execute-api.us-east-2.amazonaws.com"
+        }
+      ],
+      "networkMode": "PUBLIC",
+      "protocol": "HTTP",
+      "authorizerType": "CUSTOM_JWT",
+      "additionalPolicies": [
+        "specialists-invoke-policy.json"
+      ],
+      "authorizerConfiguration": {
+        "customJwtAuthorizer": {
+          "discoveryUrl": "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_cZUoWl8uB/.well-known/openid-configuration",
+          "allowedClients": [
+            "3nbs02ig7udvkpls95nkfkuirf"
+          ]
+        }
+      },
+      "requestHeaderAllowlist": [
+        "Authorization"
+      ]
+    },
+    {
+      "name": "HotelsAgent",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/HotelsAgent/",
+      "runtimeVersion": "PYTHON_3_12",
+      "networkMode": "PUBLIC",
+      "protocol": "A2A",
+      "authorizerType": "AWS_IAM"
+    }
+  ],
+  "memories": [
+    {
+      "name": "TripPlannerMemory",
+      "eventExpiryDuration": 30,
+      "strategies": [
+        {
+          "type": "USER_PREFERENCE",
+          "name": "TravelerPreferences",
+          "description": "Preferencias de viaje del usuario (horarios, aerolineas, asientos).",
+          "namespaceTemplates": [
+            "/preferences/{actorId}/"
+          ]
+        },
+        {
+          "type": "SUMMARIZATION",
+          "name": "SessionSummarizer",
+          "description": "Resumen por sesion de planificacion de viaje.",
+          "namespaceTemplates": [
+            "/summaries/{actorId}/{sessionId}/"
+          ]
+        },
+        {
+          "type": "SEMANTIC",
+          "name": "TravelFacts",
+          "description": "Hechos relevantes del viaje recuperables por significado.",
+          "namespaceTemplates": [
+            "/facts/{actorId}/"
+          ]
+        }
+      ]
+    }
+  ],
+  "knowledgeBases": [],
+  "credentials": [
+    {
+      "authorizerType": "ApiKeyCredentialProvider",
+      "name": "Gemini"
+    },
+    {
+      "authorizerType": "OAuthCredentialProvider",
+      "name": "TripPlannerGateway-oauth",
+      "discoveryUrl": "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_Ioci9CSrv/.well-known/openid-configuration",
+      "vendor": "CustomOauth2",
+      "managed": true,
+      "usage": "inbound"
+    },
+    {
+      "authorizerType": "ApiKeyCredentialProvider",
+      "name": "FlightPowers"
+    }
+  ],
+  "evaluators": [],
+  "onlineEvalConfigs": [],
+  "agentCoreGateways": [
+    {
+      "name": "TripPlannerGateway",
+      "protocolType": "MCP",
+      "description": "Gateway MCP de TripPlanner (herramientas de viaje) protegido con OAuth de Cognito",
+      "targets": [
+        {
+          "name": "TravelTips",
+          "targetType": "lambda",
+          "toolDefinitions": [
+            {
+              "name": "get_travel_tips",
+              "description": "Devuelve consejos de viaje (clima, transporte y lugares destacados) para una ciudad colombiana: Bogota, Medellin, Cartagena o Barranquilla.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "type": "string",
+                    "description": "Nombre de la ciudad colombiana."
+                  }
+                },
+                "required": [
+                  "city"
+                ]
+              }
+            },
+            {
+              "name": "convert_cop_to_usd",
+              "description": "Convierte un monto en pesos colombianos (COP) a dolares (USD) con una tasa fija simulada.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "amount_cop": {
+                    "type": "number",
+                    "description": "Monto en pesos colombianos."
+                  }
+                },
+                "required": [
+                  "amount_cop"
+                ]
+              }
+            }
+          ],
+          "compute": {
+            "host": "Lambda",
+            "implementation": {
+              "language": "Python",
+              "path": "app/TravelTips/",
+              "handler": "handler.lambda_handler"
+            },
+            "pythonVersion": "PYTHON_3_12",
+            "timeout": 15,
+            "memorySize": 256
+          },
+          "outboundAuth": {
+            "type": "NONE"
+          }
+        }
+      ],
+      "authorizerType": "CUSTOM_JWT",
+      "authorizerConfiguration": {
+        "customJwtAuthorizer": {
+          "discoveryUrl": "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_Ioci9CSrv/.well-known/openid-configuration",
+          "allowedClients": [
+            "2ok8hlm2d7h4fg6eecsg7biggb"
+          ],
+          "allowedScopes": [
+            "tripplanner-gateway/invoke"
+          ]
+        }
+      },
+      "enableSemanticSearch": true,
+      "exceptionLevel": "NONE"
+    }
+  ],
+  "policyEngines": [],
+  "configBundles": [],
+  "abTests": [],
+  "harnesses": [],
+  "datasets": [],
+  "payments": []
+}

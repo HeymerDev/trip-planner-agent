@@ -1,0 +1,19 @@
+# Secretos y credenciales (nunca versionar)
+DEMO_USER.txt
+agentcore/.env.local
+**/.env
+**/.env.*
+!**/.env.example
+.agentcore.json
+
+# Entornos y artefactos
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+.mypy_cache/
+backend/.aws-sam/
+frontend/node_modules/
+frontend/dist/
+agentcore/cdk/node_modules/
+agentcore/cdk/cdk.out/
+agentcore/.cli/logs/

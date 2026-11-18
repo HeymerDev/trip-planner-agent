@@ -1,0 +1,14 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "InvokeTripPlannerSpecialists",
+      "Effect": "Allow",
+      "Action": ["bedrock-agentcore:InvokeAgentRuntime", "bedrock-agentcore:GetAgentCard"],
+      "Resource": [
+        "arn:aws:bedrock-agentcore:us-east-2:406868032460:runtime/tripplanner_*",
+        "arn:aws:bedrock-agentcore:us-east-2:406868032460:runtime/tripplanner_*/runtime-endpoint/*"
+      ]
+    }
+  ]
+}

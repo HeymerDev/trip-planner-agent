@@ -1,0 +1,66 @@
+{
+  "targets": {
+    "default": {
+      "resources": {
+        "runtimes": {
+          "OrchestratorAgent": {
+            "runtimeId": "tripplanner_OrchestratorAgent-Rvf9bY2it5",
+            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:runtime/tripplanner_OrchestratorAgent-Rvf9bY2it5",
+            "roleArn": "arn:aws:iam::406868032460:role/AgentCore-tripplanner-def-ApplicationAgentOrchestra-MG0Lu08nGjuj"
+          },
+          "WeatherAgent": {
+            "runtimeId": "tripplanner_WeatherAgent-TcogwZHWtC",
+            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:runtime/tripplanner_WeatherAgent-TcogwZHWtC",
+            "roleArn": "arn:aws:iam::406868032460:role/AgentCore-tripplanner-def-ApplicationAgentWeatherAg-jXAdPYEZFahw"
+          },
+          "FlightsAgent": {
+            "runtimeId": "tripplanner_FlightsAgent-sbe2oe6mD7",
+            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:runtime/tripplanner_FlightsAgent-sbe2oe6mD7",
+            "roleArn": "arn:aws:iam::406868032460:role/AgentCore-tripplanner-def-ApplicationAgentFlightsAg-6juFIEocXdX2"
+          },
+          "HotelsAgent": {
+            "runtimeId": "tripplanner_HotelsAgent-ZrTpWi7RPu",
+            "runtimeArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:runtime/tripplanner_HotelsAgent-ZrTpWi7RPu",
+            "roleArn": "arn:aws:iam::406868032460:role/AgentCore-tripplanner-def-ApplicationAgentHotelsAge-Qq7erw1FkTJd"
+          }
+        },
+        "memories": {
+          "TripPlannerMemory": {
+            "memoryId": "tripplanner_TripPlannerMemory-ZQN59q9P6T",
+            "memoryArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:memory/tripplanner_TripPlannerMemory-ZQN59q9P6T"
+          }
+        },
+        "mcp": {
+          "gateways": {
+            "TripPlannerGateway": {
+              "gatewayId": "tripplanner-tripplannergateway-kkb84mtyk8",
+              "gatewayArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:gateway/tripplanner-tripplannergateway-kkb84mtyk8",
+              "gatewayUrl": "https://tripplanner-tripplannergateway-kkb84mtyk8.gateway.bedrock-agentcore.us-east-2.amazonaws.com/mcp",
+              "targets": {
+                "TravelTips": {
+                  "targetId": "TJLCADNMZR"
+                }
+              }
+            }
+          }
+        },
+        "credentials": {
+          "Gemini": {
+            "credentialProviderArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:token-vault/default/apikeycredentialprovider/Gemini"
+          },
+          "FlightPowers": {
+            "credentialProviderArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:token-vault/default/apikeycredentialprovider/FlightPowers"
+          },
+          "TripPlannerGateway-oauth": {
+            "credentialProviderArn": "arn:aws:bedrock-agentcore:us-east-2:406868032460:token-vault/default/oauth2credentialprovider/TripPlannerGateway-oauth",
+            "clientSecretArn": "arn:aws:secretsmanager:us-east-2:406868032460:secret:bedrock-agentcore-identity!default/oauth2/TripPlannerGateway-oauth-7351b36d-3xUymg",
+            "callbackUrl": "https://bedrock-agentcore.us-east-2.amazonaws.com/identities/oauth2/callback/86ec188d-9ce7-4256-8214-c540279064f4"
+          }
+        },
+        "stackName": "AgentCore-tripplanner-default",
+        "identityKmsKeyArn": "arn:aws:kms:us-east-2:406868032460:key/93a7e8ba-01f2-4c8f-b7d7-48df87f5dabe",
+        "deployHash": "5fffc6959055ede9"
+      }
+    }
+  }
+}
